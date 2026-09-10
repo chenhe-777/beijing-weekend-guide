@@ -245,6 +245,10 @@ body[data-day="sunday"] .daily-index a:hover { background: #8b641d; }
 }
 
 @media (max-width: 560px) {
+  .day-switcher { padding-top: 12px; grid-template-columns: 1fr; gap: 8px; }
+  .daily-brand { grid-row: 1; grid-column: 1; }
+  .day-actions { grid-row: 2; grid-column: 1; width: 100%; min-width: 0; justify-self: stretch; justify-content: flex-start; }
+  .day-tabs { grid-row: 3; grid-column: 1; }
   .day-switcher,
   .daily-hero-inner,
   .daily-index,
@@ -255,7 +259,8 @@ body[data-day="sunday"] .daily-index a:hover { background: #8b641d; }
   .daily-brand b { font-size: 11px; }
   #copyDay { padding: 7px 10px; font-size: 9px; }
   .day-tabs a { min-width: 0; padding-left: 8px; padding-right: 8px; }
-  .daily-hero-inner h1 { font-size: 43px; }
+  .daily-hero-inner h1 { font-size: 40px; }
+  body[data-day="prepare"] .daily-hero-inner h1 { font-size: 34px; }
   .daily-hero-inner dl { grid-template-columns: 1fr; }
   .daily-hero-inner dl div + div { border-left: 0; border-top: 1px solid rgba(255,255,255,.2); }
   .daily-index { margin-top: -20px; }
@@ -279,8 +284,11 @@ body[data-day="sunday"] .daily-index a:hover { background: #8b641d; }
 
 /* Sequential field guide: route and its instructions live in the same card. */
 .day-actions { min-width: 200px; justify-self: end; justify-content: flex-end; display: flex; align-items: center; gap: 8px; }
-.day-actions button { min-height: 34px; padding: 8px 13px; border: 1px solid rgba(255,255,255,.42); border-radius: 999px; color: #fff8e8; background: transparent; cursor: pointer; font-size: 10px; font-weight: 800; }
-.day-actions button:hover { color: var(--ink); background: #f2c976; border-color: #f2c976; }
+.day-actions button,
+.day-actions .prepare-link { min-height: 34px; padding: 8px 13px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,.42); border-radius: 999px; color: #fff8e8; background: transparent; cursor: pointer; font-size: 10px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+.day-actions button:hover,
+.day-actions .prepare-link:hover,
+.day-actions .prepare-link.is-current { color: var(--ink); background: #f2c976; border-color: #f2c976; }
 #copyDay { justify-self: auto; }
 .daily-index { grid-template-columns: repeat(3, 1fr); }
 
@@ -390,19 +398,24 @@ body[data-day="sunday"] .daily-index a:hover { background: #8b641d; }
 body[data-view="mobile"] { background: #162523; }
 body[data-view="mobile"] .daily-hero,
 body[data-view="mobile"] .daily-page-main,
+body[data-view="mobile"] .prep-main,
 body[data-view="mobile"] .daily-footer { width: min(480px, 100%); margin-left: auto; margin-right: auto; box-shadow: 0 0 60px rgba(0,0,0,.22); }
 body[data-view="mobile"] .daily-page-main { background: var(--paper); }
 body[data-view="mobile"] .daily-hero { min-height: 390px; }
-body[data-view="mobile"] .day-switcher { width: calc(100% - 24px); min-height: 64px; grid-template-columns: 1fr auto; gap: 10px; }
+body[data-view="mobile"] .day-switcher { width: calc(100% - 24px); min-height: 64px; padding-top: 12px; grid-template-columns: 1fr; gap: 8px; }
 body[data-view="mobile"] .daily-brand { min-width: 0; }
 body[data-view="mobile"] .daily-brand b { display: none; }
-body[data-view="mobile"] .day-tabs { grid-row: 2; grid-column: 1 / -1; width: 100%; height: 46px; margin-bottom: 10px; }
+body[data-view="mobile"] .daily-brand { grid-row: 1; grid-column: 1; }
+body[data-view="mobile"] .day-actions { grid-row: 2; grid-column: 1; width: 100%; justify-self: stretch; justify-content: flex-start; }
+body[data-view="mobile"] .day-tabs { grid-row: 3; grid-column: 1; width: 100%; height: 46px; margin-bottom: 10px; }
 body[data-view="mobile"] .day-tabs a { min-width: 0; flex: 1 1 0; padding: 7px; }
 body[data-view="mobile"] .day-actions { gap: 5px; }
 body[data-view="mobile"] .day-actions { min-width: 0; }
 body[data-view="mobile"] .day-actions button { min-height: 32px; padding: 7px 9px; font-size: 8px; }
+body[data-view="mobile"] .day-actions .prepare-link { min-height: 32px; padding: 7px 9px; font-size: 8px; }
 body[data-view="mobile"] .daily-hero-inner { width: calc(100% - 28px); padding: 42px 0 52px; }
 body[data-view="mobile"] .daily-hero-inner h1 { font-size: 40px; line-height: 1.12; }
+body[data-view="mobile"][data-day="prepare"] .daily-hero-inner h1 { font-size: 34px; line-height: 1.14; }
 body[data-view="mobile"] .daily-hero-inner > p:not(.daily-sequence) { font-size: 12px; }
 body[data-view="mobile"] .daily-hero-inner dl { grid-template-columns: 1fr; }
 body[data-view="mobile"] .daily-hero-inner dl div + div { border-left: 0; border-top: 1px solid rgba(255,255,255,.2); }
@@ -528,7 +541,8 @@ body[data-view="mobile"] .daily-footer { padding: 24px 18px; }
 
 @media (max-width: 820px) {
   .day-actions { gap: 5px; }
-  .day-actions button { padding: 7px 9px; font-size: 8px; }
+  .day-actions button,
+  .day-actions .prepare-link { padding: 7px 9px; font-size: 8px; }
   .daily-journey { width: calc(100% - 28px); padding-top: 64px; }
   .journey-traffic-grid,
   .journey-transport-details > div,
@@ -536,16 +550,13 @@ body[data-view="mobile"] .daily-footer { padding: 24px 18px; }
 }
 
 /* Pre-trip field guide */
-.day-actions .prepare-link { min-height: 34px; padding: 8px 13px; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,.42); border-radius: 999px; color: #fff8e8; background: transparent; cursor: pointer; font-size: 10px; font-weight: 800; text-decoration: none; white-space: nowrap; }
-.day-actions .prepare-link:hover,
-.day-actions .prepare-link.is-current { color: var(--ink); background: #f2c976; border-color: #f2c976; }
 body[data-day="prepare"] .daily-hero {
   background:
     linear-gradient(120deg, rgba(13,50,49,.99), rgba(22,79,77,.96) 58%, rgba(9,35,35,.99)),
     repeating-linear-gradient(90deg, transparent 0 79px, rgba(255,255,255,.04) 80px 81px);
 }
 body[data-day="prepare"] .daily-hero::after { content: "备"; }
-.prep-main { background: var(--paper); }
+.prep-main { overflow: visible; background: var(--paper); }
 .prep-index { grid-template-columns: repeat(4, 1fr); }
 .prep-section { width: min(1180px, calc(100% - 48px)); margin: 0 auto; padding: 92px 0 0; scroll-margin-top: 18px; }
 .prep-section:last-child { padding-bottom: 100px; }
@@ -554,9 +565,11 @@ body[data-day="prepare"] .daily-hero::after { content: "备"; }
 .prep-heading > p:last-child { margin: 12px 0 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
 .deadline-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .deadline-card { min-height: 300px; padding: 25px; display: flex; flex-direction: column; border: 1px solid var(--line); border-top: 5px solid var(--jade); background: var(--cream); }
+.deadline-card.urgent { border-top-color: var(--cinnabar); box-shadow: 0 12px 34px rgba(153,38,29,.08); }
 .deadline-card.done { border-top-color: var(--jade); background: rgba(22,79,77,.07); }
 .deadline-card.done > span { color: var(--jade); }
 .deadline-card.wide { min-height: 220px; grid-column: 1 / -1; }
+.deadline-card.pending { border-top-style: dashed; }
 .deadline-card > span { color: var(--cinnabar); font-size: 9px; font-weight: 900; letter-spacing: .1em; }
 .deadline-card time { margin-top: 12px; color: var(--jade-dark); font: 800 28px/1 var(--display); }
 .deadline-card h3 { margin: 9px 0 10px; font: 700 27px/1.2 var(--display); }
@@ -617,6 +630,9 @@ body[data-day="prepare"] .daily-hero::after { content: "备"; }
 .concert-bag li { padding: 10px 0; color: rgba(255,248,232,.72); border-top: 1px solid rgba(255,255,255,.14); font-size: 10px; line-height: 1.65; }
 .concert-bag li:first-child { border-top: 0; }
 .concert-bag li b { color: #f2c976; }
+.concert-bag label { display: flex; gap: 9px; align-items: center; cursor: pointer; }
+.concert-bag input { width: 16px; height: 16px; margin: 0; accent-color: #f2c976; }
+.concert-bag li:has(input:checked) b { text-decoration: line-through; color: rgba(255,248,232,.5); }
 .carry-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
 .carry-grid article { min-height: 210px; padding: 22px; color: #fff8e8; background: var(--red-dark); border-top: 5px solid #f2c976; }
 .carry-grid article:nth-child(2) { background: var(--jade-dark); }
@@ -629,7 +645,6 @@ body[data-day="prepare"] .daily-hero::after { content: "备"; }
 .local-save-note { margin: 12px 0 0; color: var(--muted); font-size: 9px; }
 
 body[data-view="mobile"] .prep-section { width: calc(100% - 28px); padding-top: 62px; }
-body[data-view="mobile"][data-day="prepare"] .daily-hero-inner h1 { font-size: 34px; line-height: 1.14; }
 body[data-view="mobile"] .prep-index { grid-template-columns: repeat(2, 1fr); }
 body[data-view="mobile"] .deadline-grid,
 body[data-view="mobile"] .prep-checks,
@@ -642,13 +657,12 @@ body[data-view="mobile"] .deadline-card { min-height: 0; }
 body[data-view="mobile"] .transport-callout > div + div { border-left: 0; border-top: 1px solid var(--line); }
 body[data-view="mobile"] .train-grid dl { grid-template-columns: 1fr; }
 body[data-view="mobile"] .train-grid dl div + div { border-top: 1px solid rgba(255,255,255,.12); }
-body[data-view="mobile"] .pending-strip,
+body[data-view="mobile"] .pending-strip { grid-template-columns: 1fr; gap: 5px; }
 body[data-view="mobile"] .weather-summary,
 body[data-view="mobile"] .packing-allocation,
 body[data-view="mobile"] .concert-bag { grid-template-columns: 1fr; gap: 8px; }
 
 @media (max-width: 820px) {
-  .day-actions .prepare-link { padding: 7px 9px; font-size: 8px; }
   .prep-section { width: calc(100% - 28px); padding-top: 68px; }
   .deadline-grid,
   .prep-checks,
@@ -663,8 +677,5 @@ body[data-view="mobile"] .concert-bag { grid-template-columns: 1fr; gap: 8px; }
   .prep-index { grid-template-columns: repeat(2, 1fr); }
   .transport-callout { grid-template-columns: 1fr; }
   .transport-callout > div + div { border-left: 0; border-top: 1px solid var(--line); }
-  .pending-strip,
-  .weather-summary,
-  .packing-allocation,
-  .concert-bag { grid-template-columns: 1fr; gap: 8px; }
+  .pending-strip { grid-template-columns: 1fr; gap: 5px; }
 }
